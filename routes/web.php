@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\FormControler;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +47,6 @@ Route::post('form3',[FormControler::class,'form3data'])->name('form3_data');
 Route::get('email',[FormControler::class , 'email'])->name('email');
 Route::post('email',[FormControler::class,'emaildata'])->name('email_data');
 
-Route::get('etemp' , function(){return view('forms.emailtemplate');});
+// Route::get('etemp' , function(){return view('forms.emailtemplate');});
+
+Route::get('posts',[PostController::class,'index'])->name('Post.index');

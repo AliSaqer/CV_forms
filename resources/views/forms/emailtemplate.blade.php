@@ -10,8 +10,8 @@
     <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e5e5; border-radius: 10px;">
 
         <div style="text-align: center; margin-bottom: 20px;">
-            <img src="https://via.placeholder.com/150" alt="Company Logo" style="max-width: 100%;">
-            <h1 style="margin-top: 10px;">Your Email Heading</h1>
+            <img src="{{asset('Cvassets/assets/img/profile.jpg')}}" alt="Company Logo" style="max-width: 100%;">
+            <h1 style="margin-top: 10px;">Jop apportonitie</h1>
         </div>
 
         <div style="margin-bottom: 20px;">
@@ -21,7 +21,7 @@
             <p style="margin-top: 20px;">Best Regards,<br>Your Name</p>
         </div>
 
-        <div style="text-align: center; color: #666;">
+        <div style="text-align: center; color: #393691;">
             <p>Company Name | Address | Phone Number</p>
         </div>
 

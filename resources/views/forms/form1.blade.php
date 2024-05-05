@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>form 1</title>
-    <link href="{{asset('Cvassets/formasset/bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="{{asset('Cvassets/formasset/bootstrap.min.css')}}" rel="stylesheet">
   </head>
   <body>
     <form action="{{route('form1_data')}}" method="POST">
