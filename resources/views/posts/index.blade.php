@@ -19,17 +19,21 @@
                 <th>image</th>
                 <th>actions</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>blabala@alksjdf</td>
-                <td>post 1</td>
-                <td>imag.png</td>
-                <td>
-                    <a href="" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                    <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
+            @foreach ($Posts as $post)
+                <tr>
+                    <td>{{$post->id}}</td>
+                    <td>{{$post->email}}</td>
+                    <td>{{$post->title}}</td>
+                    <td><img width="80 px" src="{{$post->image}}" alt=""></td>
+                    <td>
+                        <a href="" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                        <a href="" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+            @endforeach
+
         </table>
+        {{ $Posts->links() }}
     </div>
 
 </body>
