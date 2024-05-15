@@ -50,3 +50,4 @@ Route::post('email',[FormControler::class,'emaildata'])->name('email_data');
 // Route::get('etemp' , function(){return view('forms.emailtemplate');});
 
 Route::get('posts',[PostController::class,'index'])->name('Post.index');
+Route::get('posts/search',[PostController::class,'post_search'])->name('Post.post_search');
