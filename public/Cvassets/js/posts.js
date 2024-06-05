@@ -40,7 +40,6 @@ inp.onkeyup = function () {
 //notification thate the post creation was success
 
 setTimeout(() => {
-    console.log("time fucking out ");
     document.querySelector(".alert-success").style.display = "none";
 }, 3000);
 

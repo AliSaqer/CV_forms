@@ -7,15 +7,17 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class PostController extends Controller
 {
     public function index()
     {
+        // dd(request()->keyword);
         // $Posts = Post::all();
         // $Posts = Post::latest()->paginate(20);
         // $Posts = Post::orderby('id','desc')->paginate(20);
-        $Posts = Post::orderbydesc('id')->paginate(5);
+        // $Posts = Post::orderbydesc('id')->paginate(5);
         // $Posts = Post::simplepaginate();
         // $Posts = Post::find(4444);
 
@@ -29,9 +31,15 @@ class PostController extends Controller
         // $Users = User::where('email','ali@email.com')->first();
 
         // dd($Users->email);
+        // if (request()->has('keyword')) {
+        $Posts = Post::Where('title', 'LIKE', '%' . request()->keyword . '%')->orderbydesc('id')
+            ->paginate(10);
+        // } else {
+        // $Posts = Post::orderbydesc('id')->paginate(10);
+        // }
         return view('Posts.index', compact('Posts'));
     }
-
+    //search
     public function post_search(Request $request)
     {
         $post = Post::Where('title', 'LIKE', '%' . $request->keyword . '%')

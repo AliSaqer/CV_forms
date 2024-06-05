@@ -53,11 +53,11 @@
         {{-- search --}}
         <h2>Search</h2>
         <div class="search-wrapper">
-            <form action="{{ route('Post.index') }}", method="GET">
+            <form action="{{ route('Post.index') }}" method="GET" name="keyword">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="find post" aria-label="Recipient's username"
-                        aria-describedby="button-addon2" id="inp">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i
+                        aria-describedby="button-addon2" id="inp" name="keyword">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2" a><i
                             class="fas fa-search"></i></button>
                 </div>
                 <ul class="search-result">
@@ -85,11 +85,12 @@
                         <h1 class="modal-title fs-5" id="editmodalLabel">Edit Post</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="edit-form" action="" method="POST" enctype="multipart/form-data">
 
+                    <form id="edit-form" action="" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <div class="modal-body">
-                            @csrf
-                            @method('PUT')
+
                             <div class="mb-3">
                                 <label>Title</label>
                                 <input type="text" name="title" class="form-control" placeholder="title">
@@ -127,6 +128,7 @@
                 <th>id</th>
                 <th>email</th>
                 <th>title</th>
+                <th>body</th>
                 <th>views</th>
                 <th>image</th>
                 <th>created at</th>
