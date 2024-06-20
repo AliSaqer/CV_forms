@@ -63,6 +63,9 @@ $(".btn-edit").on("click", function () {
     $(".img-space").attr("src", image);
     tinymce.activeEditor.setContent(body);
 
+    $("#edit-form .alert").addClass("d-none");
+    $("#edit-form .alert").html("");
+
     //sending data using ajax
     $("#edit-form").on("submit", function (e) {
         e.preventDefault();
@@ -78,12 +81,31 @@ $(".btn-edit").on("click", function () {
             contentType: false,
             processData: false,
             success: function (res) {
-                console.log(res);
-                Swal.fire({
-                    title: "UPDATED SUCCESSFULY",
-                    text: "GOOD JOB",
-                    icon: "success",
-                });
+                $("#row_" + res.id + " td:nth-child(3)").text(res.title);
+                $("#row_" + res.id + " td:nth-child(5) img").attr(
+                    "src",
+                    "/uploads/" + res.image
+                );
+
+                //success massage
+                // Swal.fire({
+                //     title: "UPDATED SUCCESSFULY",
+                //     text: "GOOD JOB",
+                //     icon: "success",
+                // });
+                $("#editmodal").modal("hide");
+            },
+
+            error: function (err) {
+                $("#edit-form .alert").removeClass("d-none");
+                $("#edit-form .alert").html("");
+
+                let errorArr = err.responseJSON.errors;
+                for (const key in errorArr) {
+                    // console.log(`${key} : ${errorArr[key]}`);
+                    let li = "<li>" + errorArr[key] + "</li>";
+                    $("#edit-form .alert").append(li);
+                }
             },
         });
     });

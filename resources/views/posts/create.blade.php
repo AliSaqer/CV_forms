@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>All Posts</title>
+    <title>Create Post</title>
     <link href="{{ asset('Cvassets/formasset/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
@@ -30,12 +30,14 @@
             @csrf
             <div class="mb-3">
                 <label>Title</label>
-                <input type="text" name="title" class="form-control" placeholder="title">
+                <input type="text" name="title" class="form-control" placeholder="title"
+                    value="{{ old('title') }}">
             </div>
 
             <div class="mb-3">
                 <label>email</label>
-                <input type="text" name="email" class="form-control" placeholder="email">
+                <input type="text" name="email" class="form-control" placeholder="email"
+                    value="{{ old('email') }}">
             </div>
 
             <div class="mb-3">
@@ -45,7 +47,7 @@
 
             <div class="mb-3">
                 <label>Body</label>
-                <textarea name="body" id="mytextarea" rows="5"></textarea>
+                <textarea name="body" id="mytextarea" rows="5">{{ old('body') }}</textarea>
             </div>
 
             <button class="btn btn-success">ADD</button>

@@ -99,6 +99,7 @@ class PostController extends Controller
             'image' => $imgName,
             'body' => $request->body
         ]);
+        return $Post;
     }
     //delete
     public function destroy($id)

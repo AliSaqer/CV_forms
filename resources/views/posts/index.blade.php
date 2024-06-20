@@ -53,10 +53,11 @@
         {{-- search --}}
         <h2>Search</h2>
         <div class="search-wrapper">
-            <form action="{{ route('Post.index') }}" method="GET" name="keyword">
+            <form action="{{ route('Post.index') }}" method="GET">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="find post" aria-label="Recipient's username"
-                        aria-describedby="button-addon2" id="inp" name="keyword">
+                    <input type="text" value="{{ request()->keyword }}" class="form-control" placeholder="find post"
+                        aria-label="Recipient's username" aria-describedby="button-addon2" id="inp"
+                        name="keyword">
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon2" a><i
                             class="fas fa-search"></i></button>
                 </div>
@@ -70,7 +71,7 @@
         </div>
         {{-- success massage --}}
         @if (session('msg'))
-            <div id="fuck" class="alert alert-success alert-dismissible fade show">
+            <div class="alert alert-success alert-dismissible fade show">
                 {{ session('msg') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -90,6 +91,11 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
+
+                            <div class="alert alert-danger d-none">
+                                <ul>
+                                </ul>
+                            </div>
 
                             <div class="mb-3">
                                 <label>Title</label>
@@ -128,7 +134,6 @@
                 <th>id</th>
                 <th>email</th>
                 <th>title</th>
-                <th>body</th>
                 <th>views</th>
                 <th>image</th>
                 <th>created at</th>
@@ -136,7 +141,7 @@
                 <th>actions</th>
             </tr>
             @foreach ($Posts as $post)
-                <tr>
+                <tr id="row_{{ $post->id }}">
                     <td>{{ $post->id }}</td>
                     <td>{{ $post->email }}</td>
                     <td>{{ $post->title }}</td>
@@ -169,16 +174,24 @@
             @endforeach
 
         </table>
-        {{ $Posts->links() }}
+
+
+        {{-- this for pagination and we use appends to maintain the search word in every page --}}
+        {{-- {{ $Posts->appends(['keyword' => request()->keyword])->links() }} --}}
+        {{-- we can also use $_GET , $_POST to call every input in the form instade if call them one by one
+        and since our method in the form is get we gonna use $_GET --}}
+        {{ $Posts->appends($_GET) }}
+
+
 
     </div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.1.0/tinymce.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> --}}
 <script src="{{ asset('Cvassets/globalassets/jquery-3.7.1.min.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <script src="{{ asset('Cvassets/js/posts.js') }}"></script>
 
 <script>
