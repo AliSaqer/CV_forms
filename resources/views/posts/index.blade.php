@@ -45,6 +45,10 @@
 </head>
 
 <body>
+    {{-- <div class="mail mt-5 p-5">
+        <label class="mb-3">cos am email</label>
+        <input type="mail" name="inmail" class="form-control inmail">
+    </div> --}}
     <div class="container mt-3">
         <div class="d-flex justify-content-between align-items-center">
             <h1>All Posts</h1>
@@ -91,7 +95,7 @@
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
-
+                            {{-- this div for validation errors .. the rest of it completed in js file called "post.js" --}}
                             <div class="alert alert-danger d-none">
                                 <ul>
                                 </ul>
@@ -135,7 +139,7 @@
                 <th>email</th>
                 <th>title</th>
                 <th>views</th>
-                <th>image</th>
+                {{-- <th>image</th> --}}
                 <th>created at</th>
                 <th>updated at</th>
                 <th>actions</th>
@@ -146,7 +150,7 @@
                     <td>{{ $post->email }}</td>
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->views }}</td>
-                    <td><img width="80 px" src="{{ asset('uploads/' . $post->image) }}" alt=""></td>
+                    {{-- <td><img width="80 px" src="{{ asset('uploads/' . $post->image) }}" alt=""></td> --}}
                     <td>{{ $post->created_at->format('F d , Y') }}</td>
                     <td>
                         @if ($post->created_at == $post->updated_at)
@@ -162,11 +166,11 @@
                             data-body="{{ $post->body }}">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <form class="d-inline" action="{{ route('post.destroy', $post->id) }}" method="POST">
+                        <form class="d-inline delete-form" action="{{ route('post.destroy', $post->id) }}"
+                            method="POST">
                             @csrf
                             @method('delete')
-                            <button onclick="return confirm('are you fucking sure ');" class="btn btn-danger btn-sm"><i
-                                    class="fas fa-trash"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                         </form>
 
                     </td>
@@ -191,6 +195,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.1.0/tinymce.min.js"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> --}}
 <script src="{{ asset('Cvassets/globalassets/jquery-3.7.1.min.js') }}"></script>
+<script src="{{ asset('Cvassets/globalassets/sweetalert2@11.js') }}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 <script src="{{ asset('Cvassets/js/posts.js') }}"></script>
 
@@ -211,6 +216,36 @@
             console.log("done");
         });
     };
+</script> --}}
+
+{{-- <script>
+    //this ajax test the availability if email adderss
+    $('.inmail').on('keyup', function() {
+        let txt = $(this).val();
+
+        if (txt.length > 0) {
+            console.log(txt);
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('checkmail') }}",
+                data: {
+                    txt: txt
+                },
+                success: function(res) {
+                    if (res == 1) {
+                        $('.inmail').removeClass('is-valid');
+                        $('.inmail').addClass('is-invalid');
+                    } else if (res == 0) {
+                        $('.inmail').removeClass('is-invalid');
+                        $('.inmail').addClass('is-valid');
+                    }
+                }
+            })
+        } else {
+            $('.inmail').removeClass('is-valid');
+            $('.inmail').removeClass('is-invalid');
+        }
+    })
 </script> --}}
 
 </html>

@@ -80,7 +80,7 @@ class PostController extends Controller
         return redirect()->route('Post.index')->with('msg', 'Posted successfully');
         // dd($request->all());
     }
-    //updae
+    //update
     public function update(PostRequest $request, $id)
     {
         $Post = Post::findOrFail($id);
@@ -109,6 +109,8 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         File::delete(public_path('uploads/' . $post->image));
         $post->delete();
-        return redirect()->route('Post.index')->with('msg', 'deleted successfully');
+
+        return $post;
+        // return redirect()->route('Post.index')->with('msg', 'deleted successfully');
     }
 }

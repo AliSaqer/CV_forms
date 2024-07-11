@@ -14,7 +14,7 @@
 <body>
     <div class="container mt-3">
         <div class="d-flex justify-content-between align-items-center">
-            <h1>All Posts</h1>
+            <h1>CREATE Posts</h1>
             <button class="btn btn-success" onclick="history.back()">Go Back</button>
         </div>
 

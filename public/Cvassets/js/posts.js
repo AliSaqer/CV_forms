@@ -50,6 +50,7 @@ setTimeout(() => {
 // }, 1000);
 
 //ajax for edit using jquery
+
 $(".btn-edit").on("click", function () {
     let url = $(this).data("url");
     let title = $(this).data("title");
@@ -88,11 +89,11 @@ $(".btn-edit").on("click", function () {
                 );
 
                 //success massage
-                // Swal.fire({
-                //     title: "UPDATED SUCCESSFULY",
-                //     text: "GOOD JOB",
-                //     icon: "success",
-                // });
+                Swal.fire({
+                    title: "UPDATED SUCCESSFULY",
+                    text: "GOOD JOB",
+                    icon: "success",
+                });
                 $("#editmodal").modal("hide");
             },
 
@@ -108,5 +109,53 @@ $(".btn-edit").on("click", function () {
                 }
             },
         });
+    });
+});
+
+//delete ajax
+
+$(".delete-form").on("submit", function (e) {
+    e.preventDefault();
+    let url = $(this).attr("action");
+    // let data = new FormData(this);
+    //يستخدم لمن ما يكون فيه في الداتا فايلات  وبس تكون الحقول عبارة عن نصوص serialize();
+    let data = $(this).serialize();
+
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: url,
+                data: data,
+                success: function (res) {
+                    console.log(res);
+                    $("#row_" + res.id).remove();
+                },
+            });
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                },
+            });
+            Toast.fire({
+                icon: "success",
+                title: "fucked up real good!!",
+            });
+        }
     });
 });

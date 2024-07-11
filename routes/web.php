@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CheckMailController;
 use App\Http\Controllers\CvController;
 use App\Http\Controllers\FormControler;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,3 +68,20 @@ Route::put('post/{id}/update', [PostController::class, 'update'])->name('post.up
 
 //delete
 Route::delete('post/{id}/delete', [PostController::class, 'destroy'])->name('post.destroy');
+
+
+
+Route::get('checkmail', [CheckMailController::class, 'checkmail'])->name('checkmail');
+
+
+
+//user Routes
+
+Route::get('users', [UserController::class, 'users'])->name('users');
+//chickMail
+Route::get('user/checkmail', [UserController::class, 'checkmail'])->name('user.checkmail');
+//create
+Route::get('users/create', [UserController::class, 'create'])->name('user.create');
+Route::post('users/store', [UserController::class, 'store'])->name('user.store');
+//update
+Route::put('users/{id}/update', [UserController::class, 'update'])->name('user.update');
