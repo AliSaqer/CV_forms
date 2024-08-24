@@ -37,6 +37,9 @@
             <h1>users</h1>
             <a class="btn btn-dark px5" href="{{ route('user.create') }}">Create New</a>
         </div>
+
+        {{-- notification --}}
+
         @if (session('msg'))
             <div class="alert alert-success alert-dismissible fade show">
                 {{ session('msg') }}
@@ -57,15 +60,9 @@
                         @csrf
                         @method('PUT')
 
-                        {{-- @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif --}}
+                        <div class="alert alert-danger d-none">
+
+                        </div>
 
                         <div class="modal-body">
                             <div class="mb-3">
@@ -119,8 +116,12 @@
                             data-email="{{ $User->email }}" data-password="{{ $User->password }}">
                             <i class="fas fa-edit"></i>
                         </a>
+                        <form class="d-inline" action="{{ route('user.destroy', $User->id) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                        </form>
 
-                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
 
 
                     </td>
@@ -138,7 +139,7 @@
 <script src="{{ asset('Cvassets/globalassets/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('Cvassets/globalassets/sweetalert2@11.js') }}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
-<script src="{{ asset('Cvassets/js/posts.js') }}"></script>
+
 
 {{-- password shit --}}
 <script>
@@ -162,29 +163,56 @@
 {{-- that is for update --}}
 
 <script>
-    $('.btn-edit').on('click', function() {
-        let url = $(this).data("url");
-        let name = $(this).data("name");
-        let email = $(this).data("email");
-        let password = $(this).data("password");
+    $(document).ready(function() {
+        $('.btn-edit').on('click', function() {
 
-        $('#edit-form').attr('action', url);
-        $('#editmodal input[name=name]').val(name);
-        $('#editmodal input[name=email]').val(email);
-        $('#editmodal input[name=pwd]').val(password);
+            $("#edit-form .alert").addClass("d-none");
+            $("#edit-form .alert").html("");
 
-        $('#edit-form').on('submit', function(e) {
-            e.preventDefault();
-            let data = $(this).serialize();
+            let url = $(this).data("url");
+            let name = $(this).data("name");
+            let email = $(this).data("email");
 
-            $.ajax({
-                type: 'put',
-                url: url,
-                data: data,
-                success: function(res) {
-                    console.log(res);
-                }
-            })
-        })
-    })
+            $('#edit-form').attr('action', url);
+            $('#editmodal input[name=name]').val(name);
+            $('#editmodal input[name=email]').val(email);
+
+            $('#edit-form').on('submit', function(e) {
+                e.preventDefault();
+                let data = $(this).serialize();
+
+                $.ajax({
+                    type: 'put',
+                    url: url,
+                    data: data,
+                    success: function(res) {
+                        console.log(res.id);
+                        console.log(res.name);
+                        console.log(res.email);
+                        $('#row_' + res.id + " td:nth-child(2)").text(res.name);
+                        $('#row_' + res.id + " td:nth-child(3)").text(res.email);
+
+                    },
+                    error: function(err) {
+
+                        $("#edit-form .alert").removeClass("d-none");
+                        $("#edit-form .alert").html("");
+
+
+                        let errArray = err.responseJSON.errors;
+                        console.log(errArray);
+
+                        let note = $('#edit-form .alert');
+
+                        //فور ان بتستخدم لمن بدنا نعمل لووب على اوبجكت
+
+                        for (const key in errArray) {
+                            let li = '<li>' + errArray[key] + '</li>';
+                            note.append(li);
+                        }
+                    }
+                });
+            });
+        });
+    });
 </script>

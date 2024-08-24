@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function users()
     {
-        $Users = User::orderbydesc('id')->paginate(5);
+        $Users = User::orderbydesc('id')->paginate(10);
         return view('users.users', compact('Users'));
     }
 
@@ -51,5 +51,14 @@ class UserController extends Controller
         ]);
 
         return $user;
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->route('users')->with('msg', 'the user with id: ' . $id . ' deleted successfuly');
     }
 }

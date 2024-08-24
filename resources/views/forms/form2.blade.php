@@ -21,11 +21,11 @@
 
             <h2>Personal Info</h2>
 
-            {{-- @dump($errors)
-            @dump($w->all())
+            {{-- @dump($errors) --}}
+            {{-- @dump($w->all())
             @dump($errors->any()) --}}
 
-            @include('forms.errors')
+            {{-- @include('forms.errors') --}}
 
 
             <div class="mb-3">
