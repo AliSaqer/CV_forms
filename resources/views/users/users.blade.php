@@ -135,7 +135,7 @@
 </body>
 
 </html>
-<script src="{{ asset('Cvassets/globalassets/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('Cvassets/globalassets/bootstrap. .min.js') }}"></script>
 <script src="{{ asset('Cvassets/globalassets/jquery-3.7.1.min.js') }}"></script>
 <script src="{{ asset('Cvassets/globalassets/sweetalert2@11.js') }}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
